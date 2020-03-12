@@ -1,9 +1,6 @@
-# My beautiful actor
+# Sitemap sniffer
 
-The `README.md` file contains a documentation what your actor does and how to use it,
-which is then displayed in the app or Apify Store. It's always a good
-idea to write a good `README.md`, in a few months not even you
-will remember all the details about the actor.
+Sitemap sniffer will check the most used variants of sitemaps and you can use that for crawling.
+This will just save you time so you don't have to check manually.
 
-You can use [Markdown](https://www.markdownguide.org/cheat-sheet)
-language for rich formatting.
+Run it on [Apify](https://apify.com)

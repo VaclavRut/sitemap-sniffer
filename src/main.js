@@ -3,7 +3,7 @@ const Apify = require('apify');
 const possibleXmlUrls = require('./consts');
 
 Apify.main(async () => {
-    let { url } = await Apify.getInput();
+    let { url, proxy } = await Apify.getInput();
     if (url.match(/\/$/) !== null) {
         url = url.replace(/\/$/, '');
     }
@@ -17,7 +17,7 @@ Apify.main(async () => {
     const crawler = new Apify.PuppeteerCrawler({
         requestQueue,
         launchPuppeteerOptions: {
-            useApifyProxy: true,
+            ...proxy
         },
         // This function is called for every page the crawler visits
         handlePageFunction: async ({ request, page, response }) => {

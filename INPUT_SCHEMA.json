@@ -1,0 +1,22 @@
+{
+  "title": "Sitemap sniffer",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+
+    "url": {
+      "title": "Url to check",
+      "type": "string",
+      "description": "Url to check",
+      "prefill": "https://mall.cz",
+      "editor": "textarea"
+    },
+    "proxy":{
+        "title": "Proxy configuration",
+        "type": "object",
+        "description": "Select proxies to be used by your crawler.",
+        "prefill": { "useApifyProxy": true },
+        "editor": "proxy"
+    }
+  }
+}

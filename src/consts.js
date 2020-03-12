@@ -30,6 +30,8 @@ const possibleXmlUrls = [
     '/media/sitemap.xml.tar.gz',
     '/media/sitemap/sitemap.xml.tar.gz',
     '/media/sitemap/index.xml.tar.gz',
+    '/robots.txt',
+    '/_sitemap-categories.xml',
 ];
 
 module.exports = possibleXmlUrls;

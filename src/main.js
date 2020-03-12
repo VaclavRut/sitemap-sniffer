@@ -16,8 +16,16 @@ Apify.main(async () => {
 
     const crawler = new Apify.PuppeteerCrawler({
         requestQueue,
+        useSessionPool: true,
+        maxConcurrency: 1,
+        puppeteerPoolOptions: {
+            maxOpenPagesPerInstance: 1,
+            retireInstanceAfterRequestCount: 80,
+        },
         launchPuppeteerOptions: {
-            ...proxy
+            ...proxy,
+            stealth: true,
+            useChrome: true,
         },
         // This function is called for every page the crawler visits
         handlePageFunction: async ({ request, page, response }) => {

@@ -1,6 +1,7 @@
 const Apify = require('apify');
 
 const possibleXmlUrls = require('./consts');
+const { log } = Apify.utils;
 
 Apify.main(async () => {
     let { url, proxy } = await Apify.getInput();
@@ -28,7 +29,14 @@ Apify.main(async () => {
             useChrome: true,
         },
         // This function is called for every page the crawler visits
-        handlePageFunction: async ({ request, page, response }) => {
+        handlePageFunction: async ({ request, page, response, session }) => {
+            const responseStatus = response.status();
+            if(responseStatus === 403){
+                session.retire();
+                request.retryCount--;
+                await Apify.utils.sleep(5000);
+                throw new Error('Session blocked, retiring.');
+            }
             const htmlRaw = await page.evaluate(() => {
                 return document.querySelector('body').innerText.trim();
             });
@@ -41,9 +49,11 @@ Apify.main(async () => {
             await Apify.pushData({
                 url: request.url,
                 loadedUrl: request.loadedUrl,
-                statusCode: response.status(),
+                statusCode: responseStatus,
                 htmlUrl,
             });
+
+            log.info(`${request.url} checked, status ${responseStatus}`);
         },
 
         // This function is called for every page the crawler failed to load
